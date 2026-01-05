@@ -1,0 +1,42 @@
+[
+    {
+        "name": "PowerBI",
+        "icon": "https://img.icons8.com/?size=100&id=70667&format=png&color=000000.png"
+    },
+ 
+    {
+        "name": "Workflow",
+        "icon": "https://img.icons8.com/?size=100&id=miF93wpZ2tvQ&format=png&color=000000"
+    },
+    {
+        "name": "Excel",
+        "icon": "https://img.icons8.com/?size=100&id=FzgamfNXbigi&format=png&color=000000"
+    },
+    {
+        "name": "Databricks",
+        "icon": "https://cdn.brandfetch.io/idSUrLOWbH/theme/dark/idOSUN2QlG.svg?c=1dxbfHSJFAPEGdCLU4o5B"
+    },
+    {
+        "name": "Python",
+        "icon": "https://img.icons8.com/?size=100&id=WTWJ3d25xgFM&format=png&color=000000"
+    },
+    {
+        "name": "Postgres",
+        "icon": "https://img.icons8.com/?size=100&id=Pv4IGT0TSpt8&format=png&color=000000"
+    },
+    
+    {
+        "name": "MySQL",
+        "icon": "https://img.icons8.com/color/48/000000/mysql-logo.png"
+    },
+   
+    {
+        "name": "Git",
+        "icon": "https://img.icons8.com/color/48/000000/git.png"
+    },
+    
+    {
+        "name": "GitHub",
+        "icon": "https://img.icons8.com/glyph-neue/48/ffffff/github.png"
+    }
+]
