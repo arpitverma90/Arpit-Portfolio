@@ -1,2 +1,2 @@
-# Krit_Portfololio
+# Arpit_Portfololio
 My Portfolio Website
