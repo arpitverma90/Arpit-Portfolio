@@ -71,7 +71,7 @@ $(document).ready(function () {
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["Data Engineering ", "Data Analyst", "Power Bi Developer", "Cloud Engineering"],
+    strings: ["Data Engineering ", "Data Analytics", "Power Bi Developer", "Cloud Engineering"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
