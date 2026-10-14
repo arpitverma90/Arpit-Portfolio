@@ -1,5 +1,98 @@
 $(document).ready(function () {
 
+    const aboutText = document.querySelector('.about-text');
+    if (aboutText) {
+        const originalText = aboutText.textContent.trim().replace(/\s+/g, ' ');
+        let resizeTimer;
+
+        function renderAboutText() {
+            const width = aboutText.clientWidth;
+            if (window.innerWidth < 900 || width < 450) {
+                aboutText.textContent = originalText;
+                return;
+            }
+
+            const words = originalText.split(' ');
+            const style = window.getComputedStyle(aboutText);
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = style.font;
+
+            const wordWidths = words.map(word => context.measureText(word).width);
+            const spaceWidth = context.measureText(' ').width;
+            const totalWidth = wordWidths.reduce((sum, wordWidth) => sum + wordWidth, 0)
+                + spaceWidth * (words.length - 1);
+            const lineCount = Math.ceil(totalWidth / width);
+            const targetLineWidth = totalWidth / lineCount;
+            const lines = [];
+            let start = 0;
+
+            for (let lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+                const remainingLines = lineCount - lineIndex - 1;
+                const maxEnd = words.length - remainingLines;
+                let end = start;
+                let lineWidth = 0;
+
+                while (end < maxEnd) {
+                    const nextWidth = lineWidth
+                        + (end > start ? spaceWidth : 0)
+                        + wordWidths[end];
+                    if (end > start && lineWidth >= targetLineWidth) {
+                        break;
+                    }
+                    lineWidth = nextWidth;
+                    end++;
+                }
+
+                if (end < maxEnd && end > start) {
+                    const nextWidth = lineWidth + spaceWidth + wordWidths[end];
+                    if (Math.abs(nextWidth - targetLineWidth) < Math.abs(lineWidth - targetLineWidth)) {
+                        lineWidth = nextWidth;
+                        end++;
+                    }
+                }
+
+                lines.push(words.slice(start, end));
+                start = end;
+            }
+
+            aboutText.replaceChildren();
+            lines.forEach((lineWords, lineIndex) => {
+                const line = document.createElement('span');
+                line.className = 'about-line';
+                let letterGaps = 0;
+
+                lineWords.forEach((word, index) => {
+                    const wordElement = document.createElement('span');
+                    wordElement.textContent = word;
+                    line.appendChild(wordElement);
+                    letterGaps += Math.max(0, word.length - 1);
+                    if (index < lineWords.length - 1) {
+                        line.appendChild(document.createTextNode(' '));
+                    }
+                });
+
+                aboutText.appendChild(line);
+                if (letterGaps > 0 && lineIndex < lines.length - 1) {
+                    const range = document.createRange();
+                    range.selectNodeContents(line);
+                    const naturalWidth = range.getBoundingClientRect().width;
+                    const letterSpacing = Math.max(0, (width - naturalWidth) / letterGaps);
+                    line.querySelectorAll('span').forEach(word => {
+                        word.style.letterSpacing = `${letterSpacing}px`;
+                    });
+                }
+            });
+        }
+
+        renderAboutText();
+        document.fonts.ready.then(renderAboutText);
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(renderAboutText, 100);
+        });
+    }
+
     $('#menu').click(function () {
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
